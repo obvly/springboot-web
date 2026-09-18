@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.springbootweb.dto.BookDto;
 import org.example.springbootweb.dto.CreateBookRequestDto;
 import org.example.springbootweb.service.BookService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -22,7 +23,9 @@ public class BookController {
     public BookDto getBookById(@PathVariable Long id) {
         return bookService.getBookById(id);
     }
+
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED) // Add status 201
     public BookDto createBook(@RequestBody CreateBookRequestDto bookDto) {
         return bookService.createBook(bookDto);
     }
