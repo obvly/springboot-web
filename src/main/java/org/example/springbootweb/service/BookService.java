@@ -1,8 +1,8 @@
 package org.example.springbootweb.service;
 
+import java.util.List;
 import org.example.springbootweb.dto.BookDto;
 import org.example.springbootweb.dto.CreateBookRequestDto;
-import java.util.List;
 
 public interface BookService {
     BookDto createBook(CreateBookRequestDto bookDto);

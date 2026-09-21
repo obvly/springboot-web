@@ -1,8 +1,8 @@
 package org.example.springbootweb.repository;
 
-import org.example.springbootweb.model.Book;
 import java.util.List;
 import java.util.Optional;
+import org.example.springbootweb.model.Book;
 
 public interface BookRepository {
     Book save(Book book);

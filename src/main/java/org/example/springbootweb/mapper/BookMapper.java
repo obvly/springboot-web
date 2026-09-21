@@ -2,8 +2,8 @@ package org.example.springbootweb.mapper;
 
 import org.example.springbootweb.dto.BookDto;
 import org.example.springbootweb.dto.CreateBookRequestDto;
-import org.mapstruct.Mapper;
 import org.example.springbootweb.model.Book;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
