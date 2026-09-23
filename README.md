@@ -1,45 +1,55 @@
-# 📚 Online Book Store API
+# Online Book Store API
 
-This is a robust RESTful API designed for managing an online book catalog. Built with **Spring Boot 3.3.4**, this project demonstrates a multi-layered architecture, data transfer isolation using DTOs, and automated object mapping.
+A Java backend learning project for managing a book catalog, developed as part of Mate Academy coursework.
 
-## 🚀 Key Features
+> **Work in progress.** The implementation is in the [`submission` branch](https://github.com/obvly/springboot-web/tree/submission). The `main` branch currently contains this project overview.
 
-- **Layered Architecture**: Clean separation between Controller, Service, and Repository layers.
-- **DTO Pattern**: Uses separate Data Transfer Objects for API requests and responses to ensure data security and integrity.
-- **Automated Mapping**: Utilizes **MapStruct** for type-safe and efficient conversion between Entities and DTOs.
-- **Data Integrity**: Enforced database constraints and validation at the Entity level.
-- **Manual Session Management**: Demonstrates low-level database interactions using Hibernate `SessionFactory` and `Transaction` management.
-- **Robust Exception Handling**: Custom `EntityNotFoundException` to provide clear API error responses.
+[Browse the source code](https://github.com/obvly/springboot-web/tree/submission/src) · [Follow the coursework review](https://github.com/obvly/springboot-web/pull/3)
 
-## 🛠 Technologies & Tools
+## What it demonstrates
 
-*   **Java 17** (Temurin JDK)
-*   **Spring Boot 3.3.4**
-*   **Spring Data JPA & Hibernate**
-*   **MapStruct 1.5.5.Final** (mapping automation)
-*   **Lombok** (boilerplate reduction)
-*   **MySQL** (Production/Dev Database)
-*   **H2 Database** (Testing Environment)
-*   **Maven** (Dependency management)
-*   **Checkstyle** (Code quality control)
+- REST endpoints for creating books, listing the catalog, and finding a book by ID.
+- Controller, service, and repository layers.
+- Request and response DTOs mapped with MapStruct.
+- Hibernate sessions and explicit transactions in the repository implementation.
+- Maven build and Checkstyle checks in GitHub Actions.
 
-## 📖 API Documentation
+## Stack
 
-### Book Endpoints
+Java 17 · Spring Boot 3.3.4 · Hibernate · MapStruct 1.5.5.Final · Lombok · Maven
 
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| **GET** | `/api/books` | Retrieve the full book catalog |
-| **GET** | `/api/books/{id}` | Get detailed information about a specific book |
-| **POST** | `/api/books` | Add a new book to the store (**Returns 201 Created**) |
+The project includes Spring Data JPA, MySQL, and H2 dependencies. Persistence in the current submission uses a custom Hibernate repository.
 
-#### Sample Request Body (POST /api/books):
+## API in the submission branch
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| GET | `/api/books` | List books |
+| GET | `/api/books/{id}` | Find a book by ID |
+| POST | `/api/books` | Create a book; returns HTTP 201 |
+
+Example request body:
+
 ```json
 {
   "title": "Effective Java",
   "author": "Joshua Bloch",
   "isbn": "978-0134685991",
   "price": 45.00,
-  "description": "A comprehensive guide to best practices for the Java platform.",
-  "coverImage": "http://example.com/effective_java.jpg"
+  "description": "A guide to Java best practices.",
+  "coverImage": "https://example.com/cover.jpg"
 }
+```
+
+## Explore locally
+
+```bash
+git clone --branch submission https://github.com/obvly/springboot-web.git
+cd springboot-web
+```
+
+Use JDK 17 and the included Maven wrapper. Review `src/main/resources/application.properties` and configure your local database before starting the application. Test configuration is in `src/test/resources/application.properties`.
+
+## Project status
+
+This repository documents an ongoing learning process and mentor review. It is not a complete online store: authentication, checkout, and payment processing are outside the current implementation.
