@@ -1,6 +1,5 @@
 package org.example.springbootweb.service.impl;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.springbootweb.dto.BookDto;
 import org.example.springbootweb.dto.CreateBookRequestDto;
@@ -9,6 +8,8 @@ import org.example.springbootweb.mapper.BookMapper;
 import org.example.springbootweb.model.Book;
 import org.example.springbootweb.repository.BookRepository;
 import org.example.springbootweb.service.BookService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,11 +25,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> getAll() {
-        return bookRepository.findAll()
-                .stream()
-                .map(bookMapper::toDto)
-                .toList();
+    public Page<BookDto> getAll(Pageable pageable) {
+        return bookRepository.findAll(pageable)
+                .map(bookMapper::toDto);
     }
 
     @Override
