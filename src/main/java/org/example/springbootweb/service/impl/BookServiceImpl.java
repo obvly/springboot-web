@@ -9,6 +9,7 @@ import org.example.springbootweb.exception.EntityNotFoundException;
 import org.example.springbootweb.mapper.BookMapper;
 import org.example.springbootweb.model.Book;
 import org.example.springbootweb.repository.BookRepository;
+import org.example.springbootweb.repository.specification.BookSpecificationBuilder;
 import org.example.springbootweb.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,11 +20,11 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
     public List<BookDto> searchBooks(BookSearchParametersDto searchParametersDto) {
-        return bookRepository
-                .findByTitleContainingIgnoreCase(searchParametersDto.title())
+        return bookRepository.findAll(bookSpecificationBuilder.build(searchParametersDto))
                 .stream()
                 .map(bookMapper::toDto)
                 .toList();
