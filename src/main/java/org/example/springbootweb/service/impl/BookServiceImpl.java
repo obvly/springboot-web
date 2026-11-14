@@ -1,7 +1,9 @@
 package org.example.springbootweb.service.impl;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.springbootweb.dto.BookDto;
+import org.example.springbootweb.dto.BookSearchParametersDto;
 import org.example.springbootweb.dto.CreateBookRequestDto;
 import org.example.springbootweb.exception.EntityNotFoundException;
 import org.example.springbootweb.mapper.BookMapper;
@@ -17,6 +19,15 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+
+    @Override
+    public List<BookDto> searchBooks(BookSearchParametersDto searchParametersDto) {
+        return bookRepository
+                .findByTitleContainingIgnoreCase(searchParametersDto.title())
+                .stream()
+                .map(bookMapper::toDto)
+                .toList();
+    }
 
     @Override
     public BookDto createBook(CreateBookRequestDto requestDto) {
