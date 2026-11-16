@@ -3,12 +3,16 @@ package org.example.springbootweb.service.impl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.springbootweb.dto.BookDto;
+import org.example.springbootweb.dto.BookSearchParametersDto;
 import org.example.springbootweb.dto.CreateBookRequestDto;
 import org.example.springbootweb.exception.EntityNotFoundException;
 import org.example.springbootweb.mapper.BookMapper;
 import org.example.springbootweb.model.Book;
 import org.example.springbootweb.repository.BookRepository;
+import org.example.springbootweb.repository.specification.BookSpecificationBuilder;
 import org.example.springbootweb.service.BookService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +20,15 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final BookSpecificationBuilder bookSpecificationBuilder;
+
+    @Override
+    public List<BookDto> searchBooks(BookSearchParametersDto searchParametersDto) {
+        return bookRepository.findAll(bookSpecificationBuilder.build(searchParametersDto))
+                .stream()
+                .map(bookMapper::toDto)
+                .toList();
+    }
 
     @Override
     public BookDto createBook(CreateBookRequestDto requestDto) {
@@ -24,11 +37,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> getAll() {
-        return bookRepository.findAll()
-                .stream()
-                .map(bookMapper::toDto)
-                .toList();
+    public Page<BookDto> getAll(Pageable pageable) {
+        return bookRepository.findAll(pageable)
+                .map(bookMapper::toDto);
     }
 
     @Override

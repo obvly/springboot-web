@@ -46,3 +46,11 @@ databaseChangeLog:
                   defaultValueBoolean: false
                   constraints:
                     nullable: false
+  - changeSet:
+      id: fix-book-deleted-column-type
+      author: obvly
+      changes:
+        - modifyDataType:
+            tableName: books
+            columnName: is_deleted
+            newDataType: bit
