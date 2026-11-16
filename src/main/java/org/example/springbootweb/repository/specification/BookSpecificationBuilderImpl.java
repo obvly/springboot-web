@@ -9,14 +9,17 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class BookSpecificationBuilderImpl implements BookSpecificationBuilder {
+    private static final String TITLE_FIELD = "title";
+    private static final String AUTHOR_FIELD = "author";
+
     private final BookSpecificationProvider specificationProvider;
 
     @Override
     public Specification<Book> build(BookSearchParametersDto searchParameters) {
         Specification<Book> specification = Specification.where(null);
         specification = specificationProvider.addContainsIgnoreCase(
-                specification, "title", searchParameters.title());
+                specification, TITLE_FIELD, searchParameters.title());
         return specificationProvider.addContainsIgnoreCase(
-                specification, "author", searchParameters.author());
+                specification, AUTHOR_FIELD, searchParameters.author());
     }
 }
